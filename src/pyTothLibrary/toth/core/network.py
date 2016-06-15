@@ -22,6 +22,8 @@ class Client:
 
         self.create_session()
 
+        settings.client.node_id = self.__node_id
+
         thread.start_new_thread(self.keep_alive, ())
 
     def get_node_id(self):
@@ -43,21 +45,23 @@ class Client:
     def keep_alive(self):
 
         while(True):
-
+            print '.1'
             p_send = self.get_package(constants.Request_Type.KEEP_ALIVE)
             
-            p_send.add("data", ','.join(settings.client.task_list_light.get_ids()))
+            has_error = True
+
+            if (settings.client.task_list_light.count() > 0):
+                p_send.add('data', ','.join([str(n) for n in settings.client.task_list_light.get_ids()]))
+            else:
+                p_send.add('data', '')
 
             p_received = self.send(p_send)
 
             data_received = p_received.get('data')
 
-            print len(data_received)
-            time.sleep(20)
-
             settings.client.task_list_light.refresh(data_received)
 
-            time.sleep(settings.client.keep_alive_interval)
+            time.sleep(30)
 
     def get_task(self):
 
@@ -115,19 +119,7 @@ class Client:
                 sock.sendall(message_to_send)
 
                 # Receive data from the server and shut down
-                
-                data = ''
-
-                while(True):
-                    print 'before'
-                    data_rcv = sock.recv(1024)
-                    print 'bleh'
-                    if (data_rcv == ''):
-                        break
-                    print 'after'
-                    data = data + data_rcv
-                
-                #data = sock.recv(1024)
+                data = sock.recv(1024000)
 
 
                 message_received.from_string(data)
@@ -148,20 +140,7 @@ class ThreadedTCPRequestHandler(SocketServer.BaseRequestHandler):
 
     def handle(self):
 
-        data = ''
-
-        while(True):
-
-            print 'before'
-            data_rcv = self.request.recv(1024)
-            print 'bleh'
-            if (data_rcv == ''):
-                break
-
-            print 'after'
-
-            data = data + data_rcv
-            print data
+        data = self.request.recv(1024000)
 
         p_received = io.Package('', '')
         p_received.from_string(data)
@@ -202,18 +181,17 @@ class ThreadedTCPRequestHandler(SocketServer.BaseRequestHandler):
             else:
 
                 node.keep_alive()
+
                 p_send = self.get_package(constants.Request_Type.KEEP_ALIVE)
 
                 t_split = settings.server.task_list.split(settings.server.node_list.count(), settings.server.node_list.index(node_id))
 
-                print len(t_split)
+                print [node_id, len(t_split)]
 
                 for t_str in t_split:
                     p_send.add('data', t_str)
 
-                print len(p_send.get('data'))
-
-
+                
         elif (type == constants.Request_Type.GET_TASK):
 
             new_task = settings.server.task_list.start_task(node_id)
@@ -288,8 +266,15 @@ class Server:
 
     def background_execution(self):
 
+        time_out = 10
+
         while(self.keep_going):
-            settings.server.node_list.refresh_list(60)
+            try:
+                settings.server.node_list.refresh(time_out)
+            except:
+                pass
+
+            time.sleep(5)
 
     def get_menu(self):
 
@@ -337,7 +322,8 @@ class Server:
 
         node_list_str = settings.server.node_list.to_string()
 
-        content = node_list_str if len(node_list_str) > 0 else 'No active clients'
+        #content = node_list_str if len(node_list_str) > 0 else 'No active clients'
+        content = node_list_str
 
         self.print_menu_option(title, content)
 

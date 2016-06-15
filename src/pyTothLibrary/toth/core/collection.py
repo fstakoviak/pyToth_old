@@ -187,7 +187,10 @@ class NodeList:
             self.__node_list.pop(node_id)
 
     def to_string(self):
+
         l_str = ''
+
+        l_str += 'Count = %s\n' % len(self.__node_ids)
 
         for k in self.__node_list.iterkeys():
             l_str += self.__node_list[k].to_string() + '\n'
@@ -196,7 +199,7 @@ class NodeList:
 
         return l_str
 
-    def refresh_list(self, time_out):
+    def refresh(self, time_out):
         to_delete = []
 
         for k in self.__node_list.iterkeys():
@@ -206,7 +209,7 @@ class NodeList:
 
         for k in to_delete:
             self.__node_list.pop(k)
-            self.__node_ids.pop(k.get_id())
+            self.__node_ids.remove(k)
 
 class TaskList:
     def __init__(self):
@@ -337,7 +340,7 @@ class TaskListLight:
 
     def __init__(self):
         self.__task_list = []
-        self.__task_path = io.Path('./data/client/tasks')
+        self.__task_path = io.Path('./data/client/tasks/' + toth.core.settings.client.node_id)
         self.__task_path.ensure_exists()
         self.__task_path.delete_contents()
 
@@ -356,6 +359,9 @@ class TaskListLight:
         t_file = io.File(self.__task_path.get_dir_path(), '%s' % task_id)
 
         return t_file.exists()
+
+    def count(self):
+        return len(self.__task_list)
 
 
     def get(self, task_id):
@@ -379,11 +385,11 @@ class TaskListLight:
     def remove(self, task_id):
          t_file = io.File(self.__task_path.get_dir_path(), '%s' % task_id)
          t_file.remove()
-         self.__task_list.pop(task_id)
+         self.__task_list.remove(task_id)
 
     def clear(self):
 
-        for task in self.__task_list:
+        for task_id in self.__task_list:
             t_file = io.File(self.__task_path.get_dir_path(), '%s' % task_id)
             t_file.remove()
 

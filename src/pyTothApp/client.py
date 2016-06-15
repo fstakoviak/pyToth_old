@@ -40,7 +40,7 @@ def main():
 
         print settings.client.task_list_light.get_ids()
 
-        time.sleep(5)
+        time.sleep(10)
 
         #n.keep_going = task.get_id() > 0
 

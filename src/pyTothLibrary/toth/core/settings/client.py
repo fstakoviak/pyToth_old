@@ -2,13 +2,12 @@ import toth
 
 def init():
 
-    global client_nick_name
     global last_message
     global keep_alive_interval
     global task_list_light
-
+    global node_id
     
-    client_nick_name = ''
+    node_id = ''
     last_message = 0
-    keep_alive_interval = 30
+    keep_alive_interval = 10
     task_list_light = toth.core.collection.TaskListLight()

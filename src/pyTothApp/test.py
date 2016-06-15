@@ -1,23 +1,44 @@
-#a = []
-import toth.core
+import SocketServer
+import threading
+import socket
+import platform
+import thread
 
-#a.append([1, 5])
-#a.append([2, 4])
-#a.append([3, 3])
-#a.append([6, 2])
+def main():
+    pass
 
-#print max([x[0] for x in a])
+def send(address, port, message = ''):
 
-#b = [5, 4, 2, 6, 2]
+    connection_succeed = False
 
-#print b.index(0)
+    try:
+        
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-a = toth.core.application.Util()
+        # Connect to server and send data
+        sock.connect((address, port))
 
-list_length = 10
-number_of_splits = 3
+        sock.sendall(message)
+        
+        # Receive data from the server and shut down
+        data = sock.recv(1024)
 
-print a.get_split_redundancy(list_length, number_of_splits, 0)
-print a.get_split_redundancy(list_length, number_of_splits, 1)
-print a.get_split_redundancy(list_length, number_of_splits, 2)
+        return data
 
+    except:
+        print 'Error - [%s:%s] - [%s]' % (address, port, message)
+
+    finally:
+        sock.close()
+
+    return connection_succeed
+
+if __name__ == "__main__":
+
+    while True:
+        address = raw_input('Enter the address: ')
+        port = raw_input('Enter the port number: ')
+
+        print send('164.67.232.129', 8080, '%s:%s' % (address, port))
+
+        print
