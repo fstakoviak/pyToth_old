@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>1590bea6-eb58-4a36-b84f-316fa2352946</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>pyTothLibrary</Name>
+    <RootNamespace>pyTothLibrary</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="toth\core\application.py" />
+    <Compile Include="toth\core\auditing.py" />
+    <Compile Include="toth\core\benchmark.py" />
+    <Compile Include="toth\core\collection.py" />
+    <Compile Include="toth\core\constants.py" />
+    <Compile Include="toth\core\formats.py" />
+    <Compile Include="toth\core\genome.py" />
+    <Compile Include="toth\core\io.py" />
+    <Compile Include="toth\core\network.py" />
+    <Compile Include="toth\core\settings\client.py" />
+    <Compile Include="toth\core\settings\server.py" />
+    <Compile Include="toth\core\settings\__init__.py" />
+    <Compile Include="toth\core\__init__.py" />
+    <Compile Include="toth\steps\alignment.py" />
+    <Compile Include="toth\steps\pileup.py" />
+    <Compile Include="toth\steps\prepare.py" />
+    <Compile Include="toth\steps\__init__.py" />
+    <Compile Include="toth\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="toth\" />
+    <Folder Include="toth\core\" />
+    <Folder Include="toth\core\settings\" />
+    <Folder Include="toth\steps\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="toth\core\application.pyc" />
+    <Content Include="toth\core\auditing.pyc" />
+    <Content Include="toth\core\benchmark.pyc" />
+    <Content Include="toth\core\collection.pyc" />
+    <Content Include="toth\core\constants.pyc" />
+    <Content Include="toth\core\formats.pyc" />
+    <Content Include="toth\core\genome.pyc" />
+    <Content Include="toth\core\io.pyc" />
+    <Content Include="toth\core\network.pyc" />
+    <Content Include="toth\core\settings.pyc" />
+    <Content Include="toth\core\settings\client.pyc" />
+    <Content Include="toth\core\settings\server.pyc" />
+    <Content Include="toth\core\settings\__init__.pyc" />
+    <Content Include="toth\core\__init__.pyc" />
+    <Content Include="toth\package.pyc" />
+    <Content Include="toth\steps\alignment.pyc" />
+    <Content Include="toth\steps\prepare.pyc" />
+    <Content Include="toth\steps\__init__.pyc" />
+    <Content Include="toth\__init__.pyc" />
+  </ItemGroup>
+  <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
+  <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
