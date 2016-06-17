@@ -40,6 +40,12 @@
     <Compile Include="toth\core\settings\server.py" />
     <Compile Include="toth\core\settings\__init__.py" />
     <Compile Include="toth\core\__init__.py" />
+    <Compile Include="toth\samples\task.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="toth\samples\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="toth\steps\alignment.py" />
     <Compile Include="toth\steps\pileup.py" />
     <Compile Include="toth\steps\prepare.py" />
@@ -50,6 +56,7 @@
     <Folder Include="toth\" />
     <Folder Include="toth\core\" />
     <Folder Include="toth\core\settings\" />
+    <Folder Include="toth\samples\" />
     <Folder Include="toth\steps\" />
   </ItemGroup>
   <ItemGroup>

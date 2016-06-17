@@ -216,7 +216,7 @@ class TaskList:
         self.__task_list = []
         self.__task_queue = []
         self.__task_running = []
-        self.__task_path = io.Path('./data/server/tasks')
+        self.__task_path = io.Path('./data/tasks/server/%s' % toth.core.settings.server.server_id)
         self.__task_path.ensure_exists()
         self.__task_path.delete_contents()
 
@@ -294,7 +294,9 @@ class TaskList:
             pass
 
     def split(self, number_nodes, node_index):
+
         index_list = toth.core.application.Util.get_split_redundancy(self.count(), number_nodes, node_index)
+        
         r_list = []
 
         for i in index_list:
@@ -340,7 +342,10 @@ class TaskListLight:
 
     def __init__(self):
         self.__task_list = []
-        self.__task_path = io.Path('./data/client/tasks/' + toth.core.settings.client.node_id)
+        self.__task_path = None
+
+    def build_path(self):
+        self.__task_path = io.Path('./data/tasks/client/%s' % toth.core.settings.client.node_id)
         self.__task_path.ensure_exists()
         self.__task_path.delete_contents()
 
@@ -406,8 +411,6 @@ class TaskListLight:
             task.from_string(task_str)
 
             self.add(task)
-
-        print len(self.__task_list)
 
           #t_file.get_complete_path
 

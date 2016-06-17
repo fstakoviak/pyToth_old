@@ -3,97 +3,108 @@ import sys
 import datetime
 import time
 import math
+import thread
 
 from toth.core import network
 from toth.core import io
 from toth.core import application
 from toth.core import constants
 from toth.core import settings
+from toth import samples
 
 def main():
-    #url =
-    #'http://fstakoviak.bol.ucla.edu/bioinformatics/config/server_10K.ini'
+    
+    c = network.Client()
 
-    #c = application.Config(url)
-    #host = c.get_value(constants.Sections.NETWORK, constants.Network.HOST)
-    #port = int(c.get_value(constants.Sections.NETWORK,
-    #constants.Network.PORT))
+    c.start()
 
-    server_name = '127.0.0.1'
-    server_port = 8080
+    time.sleep(5)
 
-    print '== Connecting =='
-    time.sleep(1)
+    s = network.Server(port = settings.client.client_server_port)
 
-    n = network.Client(server_name, int(server_port))
+    try:
+        s.start()
 
-    print '[Client_Id] %s' % n.get_node_id()
-    print
+        time.sleep(5)
 
-    print '==== Requesting Tasks'
-    print
+        print 'Testing client server port'
+    
+        connection_succeed = c.try_income_connection(settings.client.node_address, settings.client.client_server_port)
+
+        if connection_succeed:
+            print 'Incoming connections succeeded'
+        else:
+            print 'Incoming connections failed'
+            print 'Stopping secondary server'
+            s.stop()
+    except:
+        s.stop()
+        print 'Error creating client server'
+
+    while(c.keep_alive):
+
+        task = c.get_task()
+
+        if (task.get_id() <= 0):
+            time.sleep(1)
+        else:
+            print 'Task Received: %s' % task.get_id()
+
+            method_name = task.get_method()
+
+            if (method_name == 'sum'):
+                output = samples.task.Methods.sum(task.get_parameter('num1'), task.get_parameter('num2'))
+            elif (method_name == 'divide'):
+                output = samples.task.Methods.divide(task.get_parameter('num1'), task.get_parameter('num2'))
+            elif (method_name == 'power'):
+                output = samples.task.Methods.divide(task.get_parameter('base'), task.get_parameter('exponent'))
+            elif (method_name == 'replace_text'):
+                output = samples.task.Methods.replace_text(task.get_dataset(), task.get_parameter('search_for'), task.get_parameter('replace_to'), task.get_parameter('size'))
 
 
-    while(True):
+            c.finish_task(task.get_id(), output)
 
-        #task = n.get_task()
+            time.sleep(5)
 
-        print settings.client.task_list_light.get_ids()
 
-        time.sleep(10)
 
-        #n.keep_going = task.get_id() > 0
+###########################################################
 
-        #if (task.get_id() <= 0):
-        #    time.sleep(1)
-        #else:
-        #    print '==== Task Received'
-        #    print task.to_string_console()
+    #    #n.keep_going = task.get_id() > 0
 
-        #    method_name = task.get_method()
+    #    #if (task.get_id() <= 0):
+    #    #    time.sleep(1)
+    #    #else:
+    #    #    print '==== Task Received'
+    #    #    print task.to_string_console()
 
-        #    if (method_name == 'sum'):
-        #        output = sum(task.get_parameter('num1'), task.get_parameter('num2'))
-        #    elif (method_name == 'divide'):
-        #        output = divide(task.get_parameter('num1'), task.get_parameter('num2'))
-        #    elif (method_name == 'power'):
-        #        output = divide(task.get_parameter('base'), task.get_parameter('exponent'))
-        #    elif (method_name == 'replace_text'):
-        #        output = replace_text(task.get_dataset(), task.get_parameter('search_for'), task.get_parameter('replace_to'), task.get_parameter('size'))
+    #    #    method_name = task.get_method()
 
-        #    time.sleep(2)
+    #    #    if (method_name == 'sum'):
+    #    #        output = sum(task.get_parameter('num1'), task.get_parameter('num2'))
+    #    #    elif (method_name == 'divide'):
+    #    #        output = divide(task.get_parameter('num1'), task.get_parameter('num2'))
+    #    #    elif (method_name == 'power'):
+    #    #        output = divide(task.get_parameter('base'), task.get_parameter('exponent'))
+    #    #    elif (method_name == 'replace_text'):
+    #    #        output = replace_text(task.get_dataset(), task.get_parameter('search_for'), task.get_parameter('replace_to'), task.get_parameter('size'))
 
-        #    print '[Output] %s' % output
-        #    print '===== Task Completed'
-        #    print
+    #    #    time.sleep(2)
 
-        #    n.finish_task(task.get_id(), output)
+    #    #    print '[Output] %s' % output
+    #    #    print '===== Task Completed'
+    #    #    print
 
-        #    time.sleep(3)
+    #    #    n.finish_task(task.get_id(), output)
+
+    #    #    time.sleep(3)
             
-    print '== Execution completed =='
+    #print '== Execution completed =='
 
-def sum(num1, num2):
-    return num1 + num2
-
-def divide(num1, num2):
-
-    if (num2 == 0):
-        num2 = 1
-
-    return float(num1) / float(num2)
-
-def power(base, exponent):
-
-    if (exponent == 0):
-        exponent = 1
-
-    return math.pow(base, exponent)
-
-def replace_text(text, search_for, replace_to, size):
-    return text.replace(search_for, replace_to)[:size]
+###########################################################
 
 if __name__ == "__main__":
     main()
     
+###########################################################
 

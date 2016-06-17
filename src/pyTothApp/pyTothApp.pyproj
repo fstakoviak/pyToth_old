@@ -26,6 +26,9 @@
     <Compile Include="Final_Project.py" />
     <Compile Include="main.py" />
     <Compile Include="server.py" />
+    <Compile Include="string_t.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="test.py" />
     <Compile Include="test_connection.py">
       <SubType>Code</SubType>
