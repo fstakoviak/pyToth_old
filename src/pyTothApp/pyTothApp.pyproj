@@ -28,6 +28,7 @@
     <Compile Include="client.py" />
     <Compile Include="server.py" />
     <Compile Include="toth\core\application.py" />
+    <Compile Include="toth\core\benchmark.py" />
     <Compile Include="toth\core\collection.py" />
     <Compile Include="toth\core\constants.py" />
     <Compile Include="toth\core\formats.py" />
