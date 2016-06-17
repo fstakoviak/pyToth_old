@@ -1,5 +1,5 @@
 import toth.core
-from toth.core import io, constants, network
+from toth.core import network, io, constants
 import os
 import math
 import operator

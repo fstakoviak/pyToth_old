@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f35767de-d503-4e75-bc4b-4e1a540f0738</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>server.py</StartupFile>
+    <StartupFile>client.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -27,22 +27,29 @@
   <ItemGroup>
     <Compile Include="client.py" />
     <Compile Include="server.py" />
+    <Compile Include="toth\core\application.py" />
+    <Compile Include="toth\core\collection.py" />
+    <Compile Include="toth\core\constants.py" />
+    <Compile Include="toth\core\formats.py" />
+    <Compile Include="toth\core\io.py" />
+    <Compile Include="toth\core\network.py" />
+    <Compile Include="toth\core\settings\client.py" />
+    <Compile Include="toth\core\settings\server.py" />
+    <Compile Include="toth\core\settings\__init__.py" />
+    <Compile Include="toth\core\__init__.py" />
+    <Compile Include="toth\samples\task.py" />
+    <Compile Include="toth\samples\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="toth\__init__.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\pyTothLibrary\pyTothLibrary.pyproj">
-      <Name>pyTothLibrary</Name>
-      <Project>{1590bea6-eb58-4a36-b84f-316fa2352946}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="toth\" />
     <Folder Include="toth\core\" />
     <Folder Include="toth\core\settings\" />
     <Folder Include="toth\samples\" />
+    <Folder Include="toth\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
