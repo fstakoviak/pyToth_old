@@ -5,13 +5,16 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f35767de-d503-4e75-bc4b-4e1a540f0738</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
-    <SearchPath>..\pyTothLibrary\</SearchPath>
+    <StartupFile>server.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>pyTothApp</Name>
     <RootNamespace>pyTothApp</RootNamespace>
+    <PublishUrl>
+    </PublishUrl>
+    <IsWindowsApplication>True</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,16 +26,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="client.py" />
-    <Compile Include="Final_Project.py" />
-    <Compile Include="main.py" />
     <Compile Include="server.py" />
-    <Compile Include="string_t.py">
+    <Compile Include="toth\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="test.py" />
-    <Compile Include="test_connection.py">
-      <SubType>Code</SubType>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\pyTothLibrary\pyTothLibrary.pyproj">
+      <Name>pyTothLibrary</Name>
+      <Project>{1590bea6-eb58-4a36-b84f-316fa2352946}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="toth\" />
+    <Folder Include="toth\core\" />
+    <Folder Include="toth\core\settings\" />
+    <Folder Include="toth\samples\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

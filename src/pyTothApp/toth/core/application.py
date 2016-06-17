@@ -8,38 +8,6 @@ from itertools import product
 import json
 import math
 
-#class Config:
-#    """Application set up class"""
-
-#    def __init__(self, path):
-#        """Create an instance of the Config class
-#        Attributes:
-#            path (str): path to the config file, it can be an url or physical path
-#        """
-
-#        self.__config = ConfigParser.ConfigParser()
-        
-#        if (path.startswith('http')):            
-#            res = urllib2.urlopen(path)
-#            inifile_text = res.read()
-
-#            inifile = StringIO.StringIO(inifile_text)
-#            inifile.seek(0)
-#            self.__config.readfp(inifile)
-#        else:
-#            self.__config.read(path)
-
-#    def get_value(self, section, option):
-#        """Get a value of an option from a section of the config file
-#        Attributes
-#            section: section of the config file
-#            option: option of the config file
-#        Returns:
-#            str: the corresponding value
-#        """
-#        return self.__config.get(section, option)
-
-
 class Task:
     def __init__(self):
         self.__id = 0

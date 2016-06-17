@@ -4,7 +4,7 @@ import socket
 import time
 import datetime
 import platform
-from toth.core import io, constants, settings, application, benchmark
+from toth.core import io, constants, settings, application
 import uuid
 import thread
 

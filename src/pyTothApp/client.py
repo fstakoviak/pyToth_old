@@ -67,44 +67,6 @@ def main():
             time.sleep(5)
 
 
-
-###########################################################
-
-    #    #n.keep_going = task.get_id() > 0
-
-    #    #if (task.get_id() <= 0):
-    #    #    time.sleep(1)
-    #    #else:
-    #    #    print '==== Task Received'
-    #    #    print task.to_string_console()
-
-    #    #    method_name = task.get_method()
-
-    #    #    if (method_name == 'sum'):
-    #    #        output = sum(task.get_parameter('num1'), task.get_parameter('num2'))
-    #    #    elif (method_name == 'divide'):
-    #    #        output = divide(task.get_parameter('num1'), task.get_parameter('num2'))
-    #    #    elif (method_name == 'power'):
-    #    #        output = divide(task.get_parameter('base'), task.get_parameter('exponent'))
-    #    #    elif (method_name == 'replace_text'):
-    #    #        output = replace_text(task.get_dataset(), task.get_parameter('search_for'), task.get_parameter('replace_to'), task.get_parameter('size'))
-
-    #    #    time.sleep(2)
-
-    #    #    print '[Output] %s' % output
-    #    #    print '===== Task Completed'
-    #    #    print
-
-    #    #    n.finish_task(task.get_id(), output)
-
-    #    #    time.sleep(3)
-            
-    #print '== Execution completed =='
-
-###########################################################
-
 if __name__ == "__main__":
     main()
     
-###########################################################
-
